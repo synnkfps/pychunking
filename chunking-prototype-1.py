@@ -1,7 +1,8 @@
+from bisect import bisect_left
+import threading
 import time
-
 big_list = []
-list_size = 10000000
+list_size = 1000000
 cluster = []
 
 def results(start, end):
@@ -29,16 +30,14 @@ def iterate(vanilla = bool):
 
     for i in big_list:
         count += 1
-        cluster[count-1] = i
-        print(cluster)
+        chunk.append(i)
         if not vanilla and count>10:
-            c += 1
-            cluster.pop(count % len(big_list))
+            chunk = []
             continue
 
-        if count == len(big_list):
+        if count == len(cluster):
             ed = time.time()
-            print(f"({'vanilla' if vanilla else 'chunked'}) finished reading: {results(st, ed)}s (list size: {len(cluster)})\nTotal: {''.join(list(str(st+ed))[:6])}s")
+            print(f"({'vanilla' if vanilla else 'chunked'}) finished reading: {results(st, ed)}s (list size: {len(cluster)})\n")
             break
 
 def mass_clear():
@@ -49,6 +48,6 @@ def mass_clear():
 
 
 create_list()
-iterate(False)
+iterate(True)
 
 mass_clear()
