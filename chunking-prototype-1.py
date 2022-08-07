@@ -1,7 +1,7 @@
 import time
 
 big_list = []
-list_size = 30
+list_size = 10000000
 cluster = []
 
 def results(start, end):
