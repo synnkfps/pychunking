@@ -6,9 +6,9 @@ its simple, create an list normally, then to iterate it appends the elements of 
 
 times:
 ```py
-finished writing: 0.2562s
-(chunked) finished reading: 0.5703s (list size: 999999)
+finished writing: 3.9249s
+(vanilla) finished reading: 3.4259s (list size: 9999999)
 
-finished writing: 0.2460s
-(vanilla) finished reading: 0.5139s (list size: 999999)
+finished writing: 3.5769s
+(chunked) finished reading: 4.4810s (list size: 21) # chunk size
 ```
