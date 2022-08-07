@@ -1,15 +1,12 @@
 import time
 
 big_list = []
-list_size = 1000000
-cluster = []
+list_size = 10000000
 
 def results(start, end):
     return ''.join(list(str(end-start))[:6])
 
 def create_list():
-    global cluster 
-    cluster = [0] * list_size
     st = time.time()
     for i in range(list_size):
         big_list.append(i)
@@ -20,23 +17,25 @@ def create_list():
             break
     
 chunk = []
-count = 0
+count = 1
 
 def iterate(vanilla = bool):
     global big_list, count, chunk, cluster
     st = time.time()
-    c = 0
-
+    current = 1
+    
     for i in big_list:
-        count += 1
+        current += 1
         chunk.append(i)
-        if not vanilla and count>10:
+        
+        if not vanilla and len(chunk)>100:
+            current += 1
             chunk = []
             continue
 
-        if count == len(cluster):
+        if current == list_size:
             ed = time.time()
-            print(f"({'vanilla' if vanilla else 'chunked'}) finished reading: {results(st, ed)}s (list size: {len(cluster)})\n")
+            print(f"({'vanilla' if vanilla else 'chunked'}) finished reading: {results(st, ed)}s (list size: {len(chunk)})\n")
             break
 
 def mass_clear():
@@ -45,12 +44,13 @@ def mass_clear():
     chunk.clear()
     count = 1
 
-# Vanilla Reading
+
 create_list()
 iterate(True)
 
 mass_clear()
 
-# Use Chunking
 create_list()
 iterate(False)
+
+mass_clear()
