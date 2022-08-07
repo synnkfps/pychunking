@@ -1,6 +1,6 @@
-from bisect import bisect_left
-import threading
+
 import time
+
 big_list = []
 list_size = 1000000
 cluster = []
@@ -46,8 +46,12 @@ def mass_clear():
     chunk.clear()
     count = 1
 
-
+# Vanilla Reading
 create_list()
 iterate(True)
 
 mass_clear()
+
+# Use Chunking
+create_list()
+iterate(False)
